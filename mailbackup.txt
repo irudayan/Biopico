@@ -1,0 +1,707 @@
+<?php
+//require '../PHPMailer/PHPMailerAutoload.php';
+
+//require_once "vendor/autoload.php";
+use PHPMailer\PHPMailer\PHPMailer;
+require 'vendor/autoload.php';
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+?>
+<?php
+
+
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $no_of_units = $_POST['no_of_units'];
+    $no_of_plates = $_POST['no_of_plates'];
+    $vol_tolerance = $_POST['vol_tolerance'];
+    $dens_tolerance = $_POST['dens_tolerance'];
+    $fib_thromb_cell_liver = $_POST['fib_thromb_cell_liver'];
+    $tol_vol_liver = $_POST['tol_vol_liver'];
+    $vol_gel_mix_liver = $_POST['vol_gel_mix_liver'];
+    $tot_gel_plate_liver = $_POST['tot_gel_plate_liver'];
+    $fib_thromb_cell_kid = $_POST['fib_thromb_cell_kid'];
+    $tol_kid = $_POST['tol_kid'];
+    $gel_mix_plate_kid = $_POST['gel_mix_plate_kid'];
+    $total_gel_kid = $_POST['total_gel_kid'];
+    $fib_throm_cell_brain = $_POST['fib_throm_cell_brain'];
+    $tol_brain = $_POST['tol_brain'];
+    $gel_mix_brain = $_POST['gel_mix_brain'];
+    $total_gel_brain = $_POST['total_gel_brain'];
+    $fib_thromb_cell_gut = $_POST['fib_thromb_cell_gut'];
+    $tol_gut = $_POST['tol_gut'];
+    $gel_mix_gut = $_POST['gel_mix_gut'];
+    $total_gel_gut = $_POST['total_gel_gut'];
+    $vol_liver_endo = $_POST['vol_liver_endo'];
+    $vol_kid_endo = $_POST['vol_kid_endo'];
+    $vol_brain_endo = $_POST['vol_brain_endo'];
+    $vol_gut_endo = $_POST['vol_gut_endo'];
+    $total_endo_vol = $_POST['total_endo_vol'];
+    $total_gel_need = $_POST['total_gel_need'];
+    $phenol_fact = $_POST['phenol_fact'];
+    $total_fib_gel = $_POST['total_fib_gel'];
+    $fib_work_con = $_POST['fib_work_con'];
+    $mass_phenol_pbs = $_POST['mass_phenol_pbs'];
+    $vol_pbs_phenol = $_POST['vol_pbs_phenol'];
+    $fib_powder = $_POST['fib_powder'];
+    $no_nih_units = $_POST['no_nih_units'];
+    $umg_solid = $_POST['umg_solid'];
+    $solid_bottle = $_POST['solid_bottle'];
+    $unit_bottle = $_POST['unit_bottle'];
+    $con_thromb_sol = $_POST['con_thromb_sol'];
+    $des_vol_stock = $_POST['des_vol_stock'];
+    $throm_sol_con = $_POST['throm_sol_con'];
+    $req_vol_thromb = $_POST['req_vol_thromb'];
+    $des_con_thromb = $_POST['des_con_thromb'];
+    $vol_throm_stock = $_POST['vol_throm_stock'];
+    $vol_throm_pbs = $_POST['vol_throm_pbs'];
+    $tot_gel_work = $_POST['tot_gel_work'];
+    $req_throm_con = $_POST['req_throm_con'];
+    $throm_work_sol = $_POST['throm_work_sol'];
+    $vol_hep_con = $_POST['vol_hep_con'];
+    $hep_thromb_sol = $_POST['hep_thromb_sol'];
+    $no_liver_cells = $_POST['no_liver_cells'];
+    $no_liv_flask = $_POST['no_liv_flask'];
+    $tot_liver_cell = $_POST['tot_liver_cell'];
+    $no_endo_cells = $_POST['no_endo_cells'];
+    $no_endo_flask = $_POST['no_endo_flask'];
+    $tot_endo_cell = $_POST['tot_endo_cell'];
+    $no_fib_cells = $_POST['no_fib_cells'];
+    $no_fib_flask = $_POST['no_fib_flask'];
+    $tot_fib_cell = $_POST['tot_fib_cell'];
+    $no_kid_cells = $_POST['no_kid_cells'];
+    $no_kid_flask = $_POST['no_kid_flask'];
+    $tot_kid_cell = $_POST['tot_kid_cell'];
+    $no_gut_cells = $_POST['no_gut_cells'];
+    $no_gut_flask = $_POST['no_gut_flask'];
+    $tot_gut_cell = $_POST['tot_gut_cell'];
+    $no_brain_cells = $_POST['no_brain_cells'];
+    $no_brain_flask = $_POST['no_brain_flask'];
+    $tot_brain_cell = $_POST['tot_brain_cell'];
+    $des_dens_org_liv = $_POST['des_dens_org_liv'];
+    $cells_req_exp_liv = $_POST['cells_req_exp_liv'];
+    $res_cell_dens_liv = $_POST['res_cell_dens_liv'];
+    $vol_throm_mix_liv = $_POST['vol_throm_mix_liv'];
+    $res_vol_liv = $_POST['res_vol_liv'];
+    $vol_res_left_liv = $_POST['vol_res_left_liv'];
+    $cell_remain_liv = $_POST['cell_remain_liv'];
+    $des_dens_org_kid = $_POST['des_dens_org_kid'];
+    $cells_req_exp_kid = $_POST['cells_req_exp_kid'];
+    $res_cell_dens_kid = $_POST['res_cell_dens_kid'];
+    $vol_throm_mix_kid = $_POST['vol_throm_mix_kid'];
+    $res_vol_kid = $_POST['res_vol_kid'];
+    $vol_res_left_kid = $_POST['vol_res_left_kid'];
+    $cell_remain_kid = $_POST['cell_remain_kid'];
+    $des_dens_org_brain = $_POST['des_dens_org_brain'];
+    $cells_req_exp_brain = $_POST['cells_req_exp_brain'];
+    $res_cell_dens_brain = $_POST['res_cell_dens_brain'];
+    $vol_throm_mix_brain = $_POST['vol_throm_mix_brain'];
+    $res_vol_brain = $_POST['res_vol_brain'];
+    $vol_res_left_brain = $_POST['vol_res_left_brain'];
+    $cell_remain_brain = $_POST['cell_remain_brain'];
+    $des_dens_org_gut = $_POST['des_dens_org_gut'];
+    $cells_req_exp_gut = $_POST['cells_req_exp_gut'];
+    $res_cell_dens_gut = $_POST['res_cell_dens_gut'];
+    $vol_throm_mix_gut = $_POST['vol_throm_mix_gut'];
+    $res_vol_gut = $_POST['res_vol_gut'];
+    $vol_res_left_gut = $_POST['vol_res_left_gut'];
+    $cell_remain_gut = $_POST['cell_remain_gut'];
+    $des_dens_org_endo = $_POST['des_dens_org_endo'];
+    $cells_req_exp_endo = $_POST['cells_req_exp_endo'];
+    $res_cell_dens_endo = $_POST['res_cell_dens_endo'];
+    $vol_throm_mix_endo = $_POST['vol_throm_mix_endo'];
+    $res_vol_endo = $_POST['res_vol_endo'];
+    $vol_res_left_endo = $_POST['vol_res_left_endo'];
+    $cell_remain_endo = $_POST['cell_remain_endo'];
+	$des_dens_org_fib = $_POST['des_dens_org_fib'];
+    $cells_req_exp_fib = $_POST['cells_req_exp_fib'];
+    $res_cell_dens_fib = $_POST['res_cell_dens_fib'];
+    $vol_throm_mix_fib = $_POST['vol_throm_mix_fib'];
+    $res_vol_fib = $_POST['res_vol_fib'];
+    $vol_res_left_fib = $_POST['vol_res_left_fib'];
+    $cell_remain_fib = $_POST['cell_remain_fib'];
+     date_default_timezone_set("Asia/Kolkata");
+    $date = date("d-m-Y h:i:s a");
+
+    $message1 = '<div class="header" style="width: 71%;margin: 0px 21%;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <p style=" color: #fff !important;text-align: center;font-weight: bold;font-size: 15px;padding: 1%; margin-bottom: 1px;background-color: rgb(0, 174, 84);"> BBB ORGAN FORM
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form" style="width: 70%; margin: 0px 20%; ">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="registration">
+            <style>
+              td,th{
+                padding: 15px;
+              }
+            </style>
+   <table>
+
+              <tr>
+              <td width="448" style="width:450px;"><strong>Number of units per plate</strong></td>
+              <td  width="302" style="width:300px;">' . $no_of_units . '</td>
+              </tr>
+              <tr>
+              <td><strong>No. of plates</strong></td>
+              <td>' . $no_of_plates . '</td>
+              </tr>
+              <tr>
+              <td><strong>Gel volume tolerance percentage</strong></td>
+              <td>' . $vol_tolerance . ' % </td>
+              </tr>
+              <tr>
+              <td><strong>total density tolerance percentage</strong></td>
+              <td>' . $dens_tolerance . ' % </td>
+              </tr>
+
+               <tr>
+                <td><strong><h3>Fibrinogen gel + Thrombin gel for Organs</h3></strong></td>
+              </tr>
+               <tr>
+                <td><strong><h3>Liver</h3></strong></td>
+              </tr>
+              <tr>
+                <td><strong>Volume of Fibrinogen/Thrombin/cell gel</strong></td>
+                <td>' . $fib_thromb_cell_liver . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Tolerance volume</strong></td>
+                <td>' . $tol_vol_liver . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Volume of gel mix per plate</strong></td>
+                <td>' . $vol_gel_mix_liver . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Total gel for all plates</strong></td>
+                <td>' . $tot_gel_plate_liver . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong><h3>Kidney</h3></strong></td>
+              </tr>
+
+                <tr>
+                <td><strong>Volume of Fibrinogen/Thrombin/cell gel</strong></td>
+                <td>' . $fib_thromb_cell_kid . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Tolerance</strong></td>
+                <td>' . $tol_kid . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Gel mix per plate</strong></td>
+                <td>' . $gel_mix_plate_kid . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Total gel for all plates</strong></td>
+                <td>' . $total_gel_kid . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong><h3>Brain</h3></strong></td>
+              </tr>
+                <tr>
+                <td><strong>Volume of Fibrinogen/Thrombin/cell gel</strong></td>
+                <td>' . $fib_throm_cell_brain . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Tolerance</strong></td>
+                <td>' . $tol_brain . ' cells </td>
+              </tr>
+                <tr>
+                <td><strong>Gel mix per plate</strong></td>
+                <td>' . $gel_mix_brain . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Total gel for all plates</strong></td>
+                <td>' . $total_gel_brain . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong><h3>Gut</h3></strong></td>
+              </tr>
+                <tr>
+                <td><strong>Volume of Fibrinogen/Thrombin/cell gel</strong></td>
+                <td>' . $fib_thromb_cell_gut . ' ul </td>
+              </tr>
+                <tr>
+                <td><strong>Tolerance</strong></td>
+                <td>' . $tol_gut . ' ul </td>
+               </tr>       
+               <tr>
+                <td><strong>Gel mix per plate</strong></td>
+                <td>' . $gel_mix_gut . ' ul </td>
+               </tr>
+              <tr>
+              <td><strong>Total gel for all plates</strong></td>
+              <td>' . $total_gel_gut . ' ul </td>
+              </tr>
+               <tr>
+               <td><strong><h3>Vascular Region</h3></strong></td>
+               </tr>
+              <tr>
+              <td><strong>Volume of Liver-Endothelial region</strong></td>
+              <td>' . $vol_liver_endo . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of Kidney-Endothelial region</strong></td>
+              <td>' . $vol_kid_endo . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of Brain-Endothelial region</strong></td>
+              <td>' . $vol_brain_endo . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of Gut-Endothelial region</strong></td>
+              <td>' . $vol_gut_endo . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Total Endothelial cell volume</strong></td>
+              <td>' . $total_endo_vol . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Total Gel Needed</strong></td>
+              <td>' . $total_gel_need . ' ul </td>
+              </tr>
+               <tr>
+               <td><strong><h3>Working Fibrinogen Solution</h3></strong></td>
+               </tr>
+              <tr>
+              <td><strong>Phenol red color factor</strong></td>
+              <td>' . $phenol_fact . ' </td>
+              </tr>
+              <tr>
+              <td><strong>Required total Fibrinogen gel working solution</strong></td>
+              <td>' . $total_fib_gel . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Fibrinogen working solution concentration</strong></td>
+              <td>' . $fib_work_con . ' mg/ml </td>
+              </tr>
+              <tr>
+              <td><strong>Mass of phenol red to add to PBS</strong></td>
+              <td>' . $mass_phenol_pbs . ' mg </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of PBS with phenol red</strong></td>
+              <td>' . $vol_pbs_phenol . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Fibrinogen powder</strong></td>
+              <td>' . $fib_powder . ' mg </td>
+              </tr>
+               <tr>
+               <td><strong><h3>Stock solution of Thrombin</h3></strong></td>
+               </tr>
+              <tr>
+              <td><strong>Number of NIH Units</strong></td>
+              <td>' . $no_nih_units . ' U </td>
+              </tr>
+              <tr>
+              <td><strong>U/mg Solid</strong></td>
+              <td>' . $umg_solid . ' U/mg </td>
+              </tr>
+              <tr>
+              <td><strong>Solid in bottle</strong></td>
+              <td>' . $solid_bottle . ' mg </td>
+              </tr>
+              <tr>
+              <td><strong>Units in bottle</strong></td>
+              <td>' . $unit_bottle . ' U </td>
+              </tr>
+              <tr>
+              <td><strong>Desired concentration of Thrombin stock solution</strong></td>
+              <td>' . $con_thromb_sol . ' U/mg </td>
+              </tr>
+              <tr>
+              <td><strong>Desired volume of stock solution</strong></td>
+              <td>' . $des_vol_stock . ' ml </td>
+              </tr>
+              <tr>
+              <td><strong>Thrombin stock solution concentration in mg/ml</strong></td>
+              <td>' . $throm_sol_con . ' mg/ml </td>
+              </tr>
+               <tr>
+               <td><strong><h3>Thrombin 3X Working solution</h3></strong></td>
+               </tr>
+              <tr>
+              <td><strong>Required volume of Thrombin Working solution for thrombin gel</strong></td>
+              <td>' . $req_vol_thromb . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Desired concentration of Thrombin working solution</strong></td>
+              <td>' . $des_con_thromb . ' U/ml </td>
+              </tr>
+              <tr>
+              <td><strong>Required volume of Thrombin stock solution</strong></td>
+              <td>' . $vol_throm_stock . ' ul </td>
+              </tr>
+
+              <tr>
+              <td><strong>Volume of PBS</strong></td>
+              <td>' . $vol_throm_pbs . ' ul </td>
+              </tr>
+               <tr>
+               <td><strong><h3>Thrombin 1X Working solution</h3></strong></td>
+               </tr>
+              <tr>
+              <td><strong>Required total thrombin gel working solution</strong></td>
+              <td>' . $tot_gel_work . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Required thrombin concentration</strong></td>
+              <td>' . $req_throm_con . ' U/ml </td>
+              </tr>
+              <tr>
+              <td><strong>Thrombin working solution</strong></td>
+              <td>' . $throm_work_sol . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of heparin medium for required concentration</strong></td>
+              <td>' . $vol_hep_con . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Heparin-Thrombin solution</strong></td>
+              <td>' . $hep_thromb_sol . ' ul </td>
+              </tr>
+               <tr>
+               <td><strong><h3>Cells Available from T flasks</h3></strong></td>
+               </tr>
+              <tr>
+              <td><strong>Number of Liver cells from T-75 flask</strong></td>
+              <td>' . $no_liver_cells . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of flasks</strong></td>
+              <td>' . $no_liv_flask . '  </td>
+              </tr>
+              <tr>
+              <td><strong>Total Number of Liver cells</strong></td>
+              <td>' . $tot_liver_cell . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of Endothelial cells from T75 flask</strong></td>
+              <td>' . $no_endo_cells . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of flasks</strong></td>
+              <td>' . $no_endo_flask . '  </td>
+              </tr>
+              <tr>
+              <td><strong>Total number of Endothelial cells</strong></td>
+              <td>' . $tot_endo_cell . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of Fibroblast cells from T75 flask</strong></td>
+              <td>' . $no_fib_cells . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of flasks</strong></td>
+              <td>' . $no_fib_flask . '  </td>
+              </tr>
+              <tr>
+              <td><strong>Total number of Fibroblast cells</strong></td>
+              <td>' . $tot_fib_cell . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of Kidney cells from T-75 flask</strong></td>
+              <td>' . $no_kid_cells . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of flasks</strong></td>
+              <td>' . $no_kid_flask . '  </td>
+              </tr>
+              <tr>
+              <td><strong>Total Number of Kidney cells</strong></td>
+              <td>' . $tot_kid_cell . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of Gut cells from T-75 flask</strong></td>
+              <td>' . $no_gut_cells . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of flasks</strong></td>
+              <td>' . $no_gut_flask . '  </td>
+              </tr>
+              <tr>
+              <td><strong>Total Number of Gut cells</strong></td>
+              <td>' . $tot_gut_cell . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of Brain cells from T-75 flask</strong></td>
+              <td>' . $no_brain_cells . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Number of flasks</strong></td>
+              <td>' . $no_brain_flask . '  </td>
+              </tr>
+              <tr>
+              <td><strong>Total Number of Brain cells</strong></td>
+              <td>' . $tot_brain_cell . ' cells </td>
+              </tr>
+               <tr>
+              <td><strong><h3>Liver</h3></strong></td>
+             
+              </tr>
+
+              <tr>
+              <td><strong>Desired cell density for organ in channel</strong></td>
+              <td>' . $des_dens_org_liv . ' cells/ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells required for the experiment</strong></td>
+              <td>' . $cells_req_exp_liv . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension cell density in vial</strong></td>
+              <td>' . $res_cell_dens_liv . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cells for thrombin mix</strong></td>
+              <td>' . $vol_throm_mix_liv . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension volume in the tube</strong></td>
+              <td>' . $res_vol_liv . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cell resuspension left</strong></td>
+              <td>' . $vol_res_left_liv . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells remaining</strong></td>
+              <td>' . $cell_remain_liv . ' cells </td>
+              </tr>
+               <tr>
+              <td><strong><h3>Kidney</h3></strong></td>
+              
+              </tr>
+              <tr>
+              <td><strong>Desired cell density for organ in channel</strong></td>
+              <td>' . $des_dens_org_kid . ' cells/ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells required for the experiment</strong></td>
+              <td>' . $cells_req_exp_kid . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension cell density in vial</strong></td>
+              <td>' . $res_cell_dens_kid . ' cells/ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cells for thrombin mix</strong></td>
+              <td>' . $vol_throm_mix_kid . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension volume in the tube</strong></td>
+              <td>' . $res_vol_kid . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cell resuspension left</strong></td>
+              <td>' . $vol_res_left_kid . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells remaining</strong></td>
+              <td>' . $cell_remain_kid . ' cells </td>
+              </tr>
+                <tr>
+              <td><strong><h3>Brain</h3></strong></td>
+              
+              </tr>
+              <tr>
+              <td><strong>Desired cell density for organ in channel</strong></td>
+              <td>' . $des_dens_org_brain . ' cells/ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells required for the experiment</strong></td>
+              <td>' . $cells_req_exp_brain . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension cell density in vial</strong></td>
+              <td>' . $res_cell_dens_brain . ' cells/ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cells for thrombin mix</strong></td>
+              <td>' . $vol_throm_mix_brain . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension volume in the tube</strong></td>
+              <td>' . $res_vol_brain . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cell resuspension left</strong></td>
+              <td>' . $vol_res_left_brain . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells remaining</strong></td>
+              <td>' . $cell_remain_brain . ' cells </td>
+              </tr>
+               <tr>
+              <td><strong><h3>Gut</h3></strong></td>
+              
+              </tr>
+              <tr>
+              <td><strong>Desired cell density for organ in channel</strong></td>
+              <td>' . $des_dens_org_gut . ' cells/ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells required for the experiment</strong></td>
+              <td>' . $cells_req_exp_gut . ' cells </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension cell density in vial</strong></td>
+              <td>' . $res_cell_dens_gut . ' cells/ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cells for thrombin mix</strong></td>
+              <td>' . $vol_throm_mix_gut . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Resuspension volume in the tube</strong></td>
+              <td>' . $res_vol_gut . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Volume of cell resuspension left</strong></td>
+              <td>' . $vol_res_left_gut . ' ul </td>
+              </tr>
+              <tr>
+              <td><strong>Cells remaining</strong></td>
+              <td>' . $cell_remain_gut . ' cells </td>
+              </tr>
+
+               <tr>
+              <td><strong><h3>Endothelial cells for Outer Channels</h3></strong></td>
+              
+              </tr>
+              <tr>
+              <td><strong>Desired cell density for organ in channel</strong></td>
+              <td>' . $des_dens_org_endo . ' cells/ul </td>
+              </tr>
+               <tr>
+              <td><strong>Cells required for the experiment</strong></td>
+              <td>' . $cells_req_exp_endo . ' cells </td>
+              </tr>
+               <tr>
+              <td><strong>Resuspension cell density in vial</strong></td>
+              <td>' . $res_cell_dens_endo . ' cells/ul </td>
+              </tr>
+               <tr>
+              <td><strong>Volume of cells for thrombin mix</strong></td>
+              <td>' . $vol_throm_mix_endo . ' ul </td>
+              </tr>
+               <tr>
+              <td><strong>Resuspension volume in the tube</strong></td>
+              <td>' . $res_vol_endo . ' ul </td>
+              </tr>
+               <tr>
+              <td><strong>Volume of cell resuspension left</strong></td>
+              <td>' . $vol_res_left_endo . ' ul </td>
+              </tr>
+               <tr>
+              <td><strong>Cells remaining</strong></td>
+              <td>' . $cell_remain_endo . ' cells </td>
+              </tr>
+			  <td><strong><h3>Fibroblast for Outer Channels</h3></strong></td>
+              </tr>
+              <tr>
+              <td><strong>Desired cell density for organ in channel</strong></td>
+              <td>' . $des_dens_org_fib . ' cells/ul </td>
+              </tr>
+               <tr>
+              <td><strong>Cells required for the experiment</strong></td>
+              <td>' . $cells_req_exp_fib . ' cells </td>
+              </tr>
+               <tr>
+              <td><strong>Resuspension cell density in vial</strong></td>
+              <td>' . $res_cell_dens_fib . ' cells/ul </td>
+              </tr>
+               <tr>
+              <td><strong>Volume of cells for thrombin mix</strong></td>
+              <td>' . $vol_throm_mix_fib . ' ul </td>
+              </tr>
+               <tr>
+              <td><strong>Resuspension volume in the tube</strong></td>
+              <td>' . $res_vol_fib . ' ul </td>
+              </tr>
+               <tr>
+              <td><strong>Volume of cell resuspension left</strong></td>
+              <td>' . $vol_res_left_fib . ' ul </td>
+              </tr>
+               <tr>
+              <td><strong>Cells remaining</strong></td>
+              <td>' . $cell_remain_fib . ' cells </td>
+              </tr>
+              <tr>
+              <td></td>
+              </tr>
+              <tr>
+                <td ><strong>Name</strong></td>
+                <td>' . $name . '</td>
+              </tr>
+
+              <tr>
+                <td><strong>E-mail Id</strong></td>
+                <td>' . $email . '</td>
+              </tr>
+            </tr>
+              <tr>
+             <td><strong>Registered Date</strong></td>
+             <td>' . $date . '</td>
+            
+           </tr>
+
+             </table>';
+}
+
+echo"<pre>"; print_r($_POST['submit']);exit;
+
+$mail = new PHPMailer();
+// Server settings
+# $mail->SMTPDebug = 1; // for detailed debug output
+$mail->isSMTP();
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->SMTPSecure = 'tls';
+$mail->Port = 587;
+
+$mail->Username = 'ancypriya23082000@gmail.com'; // YOUR gmail email
+$mail->Password = 'jodgprofdweutaeo'; // YOUR gmail password
+
+// Sender and recipient settings
+$mail->setfrom('accounts@biopico.com', "BBB Organ");
+
+$mail->addaddress($email);
+$mail->addaddress('webform@biopico.com');
+// $mail->addreplyto('example@gmail.com', 'Sender Name'); // to set the reply to
+
+// Setting the email content
+$mail->IsHTML(true);
+$mail->Subject = "BBB Organ Form 2";
+$mail->Body = $message1;
+$mail->AltBody = 'Plain text message body for non-HTML email client. Gmail SMTP email body.';
+
+//  echo $mail->send();
+
+if (!$mail->send()) {
+    echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+
+ echo '<script>
+
+  alert("Form Submitted Successfully!");
+
+ </script>';
+
+echo "<script type='text/javascript'> window.location.href='https://cellss.com/lkgb-organs/';</script>";
+
+}
